@@ -1,5 +1,7 @@
 package com.dzc.Http;
 
+import com.dzc.Mapper.BooksMapper;
+import com.dzc.Models.BookModel;
 import com.dzc.Models.ProductModel;
 import com.dzc.Models.ResultModel;
 import com.dzc.Service.ProdService;
@@ -20,13 +22,13 @@ import java.util.Map;
 public class ProdsForGet {
     // 注入
     @Autowired
-    public ProdsForGet(ProdService prodService) {
+    public ProdsForGet(ProdService prodService, @Qualifier("v2") Map<String, String> versionConfig, BooksMapper booksMapper) {
         this.prodService = prodService;
+        this.versionConfig = versionConfig;
+        this.booksMapper = booksMapper;
     }
 
-    @Qualifier("v2")
-    @Autowired
-    public Map<String, String> versionConfig;
+    public final Map<String, String> versionConfig;
     @GetMapping("/test")
     public String test(HttpServletRequest request) throws ClassNotFoundException {
         String test = request.getParameter("test");
@@ -37,10 +39,13 @@ public class ProdsForGet {
     }
 
     private final ProdService prodService;
+
+    private final BooksMapper booksMapper;
     @GetMapping("")
     public ResultModel prodList()
     {
-        return new ResultModel("success", this.prodService.getList());
+        BookModel bookModel = booksMapper.selectById(221);
+        return new ResultModel("success", bookModel);
     }
 
     //prods/2
