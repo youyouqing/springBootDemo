@@ -1,8 +1,6 @@
-server:
-  port: 8080
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: "jdbc:mysql://www.cthai.cn:3306/springDB?characterEncoding=utf8&useSSL=false&serverTimezone=UTC"
-    username: "root"
-    password: "zhicongdai"
+    url: jdbc:mysql://www.cthai.cn:3306/springDB?characterEncoding=utf8&useSSL=true&serverTimezone=UTC&zeroDateTimeBehavior=CONVERT_TO_NULL
+    username: root
+    password: zhicongdai

@@ -7,10 +7,7 @@ import com.dzc.Models.ResultModel;
 import com.dzc.Service.ProdService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -53,6 +50,13 @@ public class ProdsForGet {
     public ResultModel getProd(@PathVariable String id) throws InterruptedException {
         this.prodService.setProdMeta(id,"多线程异步测试");
         return new ResultModel("success", this.prodService.getProduct(id));
+    }
+
+
+    @GetMapping("/books")
+    public ResultModel bookList(@RequestParam Integer page, @RequestParam Integer pageSize)
+    {
+        return new ResultModel("success", this.prodService.getList(page, pageSize));
     }
 
 }
